@@ -12,6 +12,8 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { FlexModule } from '@angular/flex-layout';
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     MatToolbarModule,
-    FlexModule
+    FlexModule,
+    MatCardModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
