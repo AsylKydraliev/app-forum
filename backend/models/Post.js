@@ -11,7 +11,10 @@ const PostSchema = new Schema({
         ref: 'User',
         required: true
     },
-    date: new Date().toISOString(),
+    date: {
+        type: String,
+        required: true
+    },
     description: null | String,
     image: null | String,
 });
