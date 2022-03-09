@@ -10,8 +10,9 @@ const UserSchema = new Schema({
         unique: true,
         validate: {
             validator: async function (value) {
+                if(!this.isModified('email')) return true;
                 const user = await User.findOne({email: value});
-                if (user) return false;
+                return !user;
             },
             message: 'This user already registered!'
         }
@@ -24,7 +25,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    displayName: {
+    name: {
         type: String,
         required: true,
     },
