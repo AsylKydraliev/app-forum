@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { FlexModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { RegistrationComponent } from './registration/registration.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    MatToolbarModule,
+    FlexModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,16 @@
+<mat-toolbar fxLayoutAlign="space-between center">
+  <a routerLink="/" fxLayoutAlign="center">
+    Forum
+  </a>
+  <div fxLayoutAlign="space-between center">
+    <a routerLink="/addPost" class="addPost">
+      Add new post
+    </a>
+    <a routerLink="/registration">
+      <span class="material-icons register">account_circle</span>
+    </a>
+  </div>
+</mat-toolbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
