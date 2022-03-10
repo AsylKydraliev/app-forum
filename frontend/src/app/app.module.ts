@@ -22,6 +22,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { postsReducer } from './store/posts.reducer';
+import { PostsEffects } from './store/posts.effects';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FileInputComponent } from './ui/file-input/file-input.component';
 
 @NgModule({
   declarations: [
@@ -29,27 +33,30 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     PostComponent,
     AddPostComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    FileInputComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    StoreModule.forRoot({
-      users: userReducer,
-    }, {}),
-    EffectsModule.forRoot([UsersEffects]),
-    MatToolbarModule,
-    FlexModule,
-    MatCardModule,
-    HttpClientModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatProgressBarModule,
-    MatInputModule,
-    MatSnackBarModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot({
+            users: userReducer,
+            posts: postsReducer
+        }, {}),
+        EffectsModule.forRoot([UsersEffects, PostsEffects]),
+        MatToolbarModule,
+        FlexModule,
+        MatCardModule,
+        HttpClientModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatProgressBarModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

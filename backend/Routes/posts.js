@@ -57,4 +57,17 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/:id', async (req, res, next) => {
+    try{
+        const post = await Post.findOne({id: req.params._id}).populate('user', 'name');
+
+        return res.send(post);
+    }catch (error){
+        if(error instanceof mongoose.Error.ValidationError){
+            return res.status(400).send(error);
+        }
+        return next(error);
+    }
+});
+
 module.exports = router;
