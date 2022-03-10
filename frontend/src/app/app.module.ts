@@ -26,6 +26,7 @@ import { postsReducer } from './store/posts.reducer';
 import { PostsEffects } from './store/posts.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FileInputComponent } from './ui/file-input/file-input.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FileInputComponent } from './ui/file-input/file-input.component';
     PostComponent,
     AddPostComponent,
     RegistrationComponent,
-    FileInputComponent
+    FileInputComponent,
+    LoginComponent
   ],
     imports: [
         BrowserModule,

@@ -1,10 +1,10 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
-  createPostsFailure,
-  createPostsRequest,
-  createPostsSuccess,
+  fetchPostByIdFailure,
+  fetchPostByIdRequest,
+  fetchPostByIdSuccess,
   fetchPostsFailure,
   fetchPostsRequest,
   fetchPostsSuccess
@@ -12,7 +12,6 @@ import {
 import { PostsService } from '../services/posts.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class PostsEffects {
@@ -25,6 +24,17 @@ export class PostsEffects {
       })
     ))
   ));
+
+  fetchPostById = createEffect(() => this.actions.pipe(
+    ofType(fetchPostByIdRequest),
+    mergeMap(id => this.postsService.getPostById(id._id).pipe(
+      map(post => fetchPostByIdSuccess({post})),
+      catchError(requestError => {
+        return of(fetchPostByIdFailure({error: 'Something went wrong!'}));
+      })
+    ))
+  ));
+
   //
   // createPost = createEffect(() => this.actions.pipe(
   //   ofType(createPostsRequest),

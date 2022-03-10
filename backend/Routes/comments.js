@@ -40,7 +40,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try{
-        const comments = await Comment.findOne({id: req.params._id}).populate('user', 'name');
+        const comments = await Comment.findOne({_id: req.params.id}).populate('user', 'name');
 
         return res.send(comments);
     }catch (error){

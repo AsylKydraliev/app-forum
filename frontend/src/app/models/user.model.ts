@@ -12,6 +12,11 @@ export interface UserData {
   password: string
 }
 
+export interface LoginUserData {
+  email: string,
+  password: string
+}
+
 export interface FieldError {
   message: string
 }
@@ -22,4 +27,8 @@ export interface  RegisterError {
     email: FieldError,
     name: FieldError
   }
+}
+
+export interface LoginError {
+  error: string
 }

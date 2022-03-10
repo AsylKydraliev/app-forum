@@ -59,7 +59,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try{
-        const post = await Post.findOne({id: req.params._id}).populate('user', 'name');
+        const post = await Post.findOne({_id: req.params.id}).populate('user', 'name');
 
         return res.send(post);
     }catch (error){

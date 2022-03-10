@@ -29,18 +29,9 @@ export class PostsService {
   }
 
   getPostById(id: string){
-    return this.http.get<Post>(environment.apiUrl + '/posts' + id).pipe(
+    return this.http.get<Post>(environment.apiUrl + '/posts/' + id).pipe(
       map(response => {
-        return response.map(post => {
-          return new ApiPostData(
-            post._id,
-            post.title,
-            post.user,
-            post.date,
-            post.description,
-            post.image,
-          );
-        });
+        return response;
       })
     );
   }
