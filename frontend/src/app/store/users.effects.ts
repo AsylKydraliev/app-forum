@@ -5,14 +5,16 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   loginUsersFailure,
   loginUsersRequest,
-  loginUsersSuccess,
+  loginUsersSuccess, logoutUser, logoutUserRequest,
   registerUsersFailure,
   registerUsersRequest,
   registerUsersSuccess
 } from './users.actions';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, map, mergeMap, NEVER, of, tap, withLatestFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { AppState } from './types';
 
 @Injectable()
 export class UsersEffects {
@@ -41,10 +43,7 @@ export class UsersEffects {
   loginUser = createEffect(() => this.actions.pipe(
     ofType(loginUsersRequest),
     mergeMap(({userData}) => this.userService.loginUser(userData).pipe(
-      map(user => {
-        console.log(user)
-        return loginUsersSuccess({user})
-      }),
+      map(user => loginUsersSuccess({user})),
       tap(() => {
         this.snackbar.open('Login successful', 'OK', {duration: 3000});
         void this.router.navigate(['/']);
@@ -63,10 +62,28 @@ export class UsersEffects {
     ))
   ))
 
+  logoutUser = createEffect(() => this.actions.pipe(
+    ofType(logoutUserRequest),
+    withLatestFrom(this.store.select(state => state.users.user)),
+    mergeMap(([_, user]) => {
+      if(user){
+        return this.userService.logoutUser(user.token).pipe(
+          map(() => logoutUser()),
+          tap(() => {
+            this.snackbar.open('Logout successful', 'OK', {duration: 3000});
+          })
+        )
+      }
+
+      return NEVER;
+    })
+  ))
+
   constructor(
     private userService: UserService,
     private router: Router,
     private snackbar: MatSnackBar,
-    private actions: Actions
+    private actions: Actions,
+    private store: Store<AppState>
   ) {}
 }

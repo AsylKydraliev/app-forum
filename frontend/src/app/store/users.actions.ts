@@ -10,3 +10,4 @@ export const loginUsersSuccess = createAction('[Users] Login Success', props<{us
 export const loginUsersFailure = createAction('[Users] Login Failure', props<{error: null | LoginError}>());
 
 export const logoutUser = createAction('[Users] Logout');
+export const logoutUserRequest = createAction('[Users] Logout Server Request');
