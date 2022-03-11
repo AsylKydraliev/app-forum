@@ -26,15 +26,15 @@
           <app-file-input name="image" ngModel></app-file-input>
         </mat-form-field>
 
-        <button
-          type="submit"
-          mat-raised-button
-          color="primary"
-          [disabled]="f.invalid"
-        >Send</button>
         <ng-template #btn>
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="f.invalid"
+          >Send</button>
         </ng-template>
-<!--        <mat-progress-bar mode="indeterminate" *ngIf="(loading | async) else btn"></mat-progress-bar>-->
+        <mat-progress-bar mode="indeterminate" *ngIf="(loading | async) else btn"></mat-progress-bar>
       </form>
     </mat-card-content>
   </mat-card>

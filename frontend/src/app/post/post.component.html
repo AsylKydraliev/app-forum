@@ -1,4 +1,3 @@
-
 <mat-card>
   <mat-card-title-group>
     <mat-card-title>{{ postData?.title }}</mat-card-title>
@@ -10,16 +9,6 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card>
-  <h3>Leave a comment:</h3>
-  <form fxLayout="column" fxLayoutAlign="center center">
-    <mat-form-field appearance="outline">
-      <mat-label>Comment</mat-label>
-      <input name="text" required matInput ngModel #comment="ngModel"/>
-      <mat-error
-        *ngIf="comment.touched && comment.hasError('required')"
-      >Comment is required!
-      </mat-error>
-    </mat-form-field>
-  </form>
-</mat-card>
+<ng-container style="width: 70%; margin: auto" *ngIf="user | async">
+  <app-comments></app-comments>
+</ng-container>

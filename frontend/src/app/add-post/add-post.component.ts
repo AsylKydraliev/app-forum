@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AppState } from '../store/types';
 import { Store } from '@ngrx/store';
@@ -12,19 +12,18 @@ import { User } from '../models/user.model';
   templateUrl: './add-post.component.html',
   styleUrls: ['./add-post.component.sass']
 })
-export class AddPostComponent implements OnInit {
+export class AddPostComponent {
   @ViewChild('f') form!: NgForm;
   user: Observable<User | null>;
   newUser!: User;
+  loading: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {
     this.user = store.select(state => state.users.user);
+    this.loading = store.select(state => state.posts.createLoading);
     this.user.subscribe(user => {
       this.newUser = <User>user;
     });
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit() {

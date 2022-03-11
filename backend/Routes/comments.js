@@ -38,9 +38,14 @@ router.post('/', upload.single('image'), async (req, res, next) => {
     }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try{
-        const comments = await Comment.findOne({_id: req.params.id}).populate('user', 'name');
+        let query = {};
+        if(req.query.post){
+            query.post = {_id: req.query.post};
+        }
+
+        const comments = await Comment.find(query);
 
         return res.send(comments);
     }catch (error){

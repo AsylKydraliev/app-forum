@@ -30,6 +30,9 @@ import { LoginComponent } from './login/login.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { CommentsComponent } from './post/comments/comments.component';
+import { commentsReducer } from './store/comment.reducer';
+import { CommentsEffects } from './store/comment.effects';
 
 export const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -48,7 +51,8 @@ const metaReducers: Array<MetaReducer> = [localStorageSyncReducer];
     AddPostComponent,
     RegistrationComponent,
     FileInputComponent,
-    LoginComponent
+    LoginComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +60,10 @@ const metaReducers: Array<MetaReducer> = [localStorageSyncReducer];
     BrowserAnimationsModule,
     StoreModule.forRoot({
       users: userReducer,
-      posts: postsReducer
+      posts: postsReducer,
+      comments: commentsReducer
     }, {metaReducers}),
-    EffectsModule.forRoot([UsersEffects, PostsEffects]),
+    EffectsModule.forRoot([UsersEffects, PostsEffects, CommentsEffects]),
     MatToolbarModule,
     FlexModule,
     MatCardModule,

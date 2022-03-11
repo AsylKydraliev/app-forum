@@ -1,0 +1,31 @@
+<mat-card>
+  <h2 fxLayoutAlign="center center">Leave a comment:</h2>
+  <mat-card>
+    <form fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="onSubmit()" #f="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Comment</mat-label>
+        <input name="text" required matInput ngModel #comment="ngModel"/>
+        <mat-error
+          *ngIf="comment.touched && comment.hasError('required')"
+        >Comment is required!
+        </mat-error>
+      </mat-form-field>
+
+      <ng-template #btn>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="f.invalid"
+        >Send</button>
+      </ng-template>
+      <mat-progress-bar mode="indeterminate" *ngIf="(loading | async) else btn"></mat-progress-bar>
+    </form>
+  </mat-card>
+</mat-card>
+
+<mat-card *ngFor="let comment of comments | async" fxLayoutAlign="center center">
+  <p>Comment:
+    <strong> {{ comment.text }}</strong>
+  </p>
+</mat-card>
