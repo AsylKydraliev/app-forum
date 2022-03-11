@@ -27,8 +27,6 @@ router.post('/', async (req, res, next) => {
 
 router.post('/sessions',async(req, res, next) => {
     try{
-
-        console.log(req.body)
         const user = await User.findOne({email: req.body.email});
 
         if(!user){

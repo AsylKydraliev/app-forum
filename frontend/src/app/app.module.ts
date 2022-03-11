@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
@@ -27,6 +27,18 @@ import { PostsEffects } from './store/posts.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FileInputComponent } from './ui/file-input/file-input.component';
 import { LoginComponent } from './login/login.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+export const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
+  return localStorageSync({
+    keys: [{users: ['user']}],
+    rehydrate: true
+  })(reducer);
+}
+
+const metaReducers: Array<MetaReducer> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -38,27 +50,29 @@ import { LoginComponent } from './login/login.component';
     FileInputComponent,
     LoginComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        StoreModule.forRoot({
-            users: userReducer,
-            posts: postsReducer
-        }, {}),
-        EffectsModule.forRoot([UsersEffects, PostsEffects]),
-        MatToolbarModule,
-        FlexModule,
-        MatCardModule,
-        HttpClientModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatProgressBarModule,
-        MatInputModule,
-        MatSnackBarModule,
-        MatProgressSpinnerModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    StoreModule.forRoot({
+      users: userReducer,
+      posts: postsReducer
+    }, {metaReducers}),
+    EffectsModule.forRoot([UsersEffects, PostsEffects]),
+    MatToolbarModule,
+    FlexModule,
+    MatCardModule,
+    HttpClientModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatIconModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
