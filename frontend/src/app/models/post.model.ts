@@ -3,7 +3,8 @@ export interface Post {
   title: string,
   user: {
     _id: string,
-    name: string
+    name: string,
+    token: string
   },
   date: string,
   description: null | string,
@@ -16,7 +17,8 @@ export class ApiPostData {
     public title: string,
     public user: {
       _id: string,
-      name: string
+      name: string,
+      token: string
     },
     public date: string,
     public description: null | string,
@@ -28,7 +30,8 @@ export interface PostData {
   title: string,
   user: {
     _id: string,
-    name: string
+    name: string,
+    token: string
   },
   description: string,
   image: null | File,

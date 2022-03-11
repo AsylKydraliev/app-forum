@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ApiPostData, Post, PostData } from '../models/post.model';
@@ -39,11 +39,18 @@ export class PostsService {
   createPost(postData: PostData){
     const formData = new FormData();
     formData.append('title', postData.title);
-    formData.append('description', postData.description);
+    formData.append('user', postData.user._id);
 
     if (postData.image) {
       formData.append('image', postData.image);
     }
-    return this.http.post(environment.apiUrl + '/posts', formData).subscribe();
+
+    if (postData.description) {
+      formData.append('description', postData.description);
+    }
+
+    return this.http.post<Post>(environment.apiUrl + '/posts', formData, {
+      headers: new HttpHeaders({'Authorization': postData.user.token})
+    });
   }
 }

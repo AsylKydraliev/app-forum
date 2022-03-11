@@ -3,14 +3,11 @@
     Forum
   </a>
   <div fxLayoutAlign="space-between center" *ngIf="!(user | async) else userMenu">
-    <a routerLink="/addPost" class="addPost">
-      Add new post
+    <a routerLink="/registration" style="margin-right: 20px">
+      Register
     </a>
-    <a routerLink="/registration">
-      <span class="material-icons register">account_circle</span>
-    </a>
-    <a routerLink="/login">
-      SIGN IN
+    <a routerLink="/login" style="margin-right: 80px">
+      Sign in
     </a>
   </div>
 </mat-toolbar>
@@ -20,9 +17,12 @@
 
 <ng-template #userMenu>
   <h3>Hello, {{ userData?.name }}!</h3>
+  <a routerLink="/addPost" class="addPost">
+    Add new post
+  </a>
   <nav>
     <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>account_circle</mat-icon>
+      <mat-icon class="register">account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>Profile</button>

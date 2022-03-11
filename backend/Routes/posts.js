@@ -5,6 +5,7 @@ const {nanoid} = require("nanoid");
 const path = require("path");
 const Post = require("../models/Post");
 const config = require("../config");
+const authorization = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -19,18 +20,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.post('/', upload.single('image'), async (req, res, next) => {
+router.post('/', authorization, upload.single('image'), async (req, res, next) => {
     try{
         const post = new Post({
             title: req.body.title,
             user: req.body.user,
-            description: req.body.description,
+            description: null,
             date: new Date().toISOString(),
             image: null
         });
 
         if(req.file){
             post.image = req.file.filename;
+        }
+
+        if(req.body.description){
+            post.description = req.body.description;
         }
 
         await post.save();

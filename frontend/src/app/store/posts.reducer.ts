@@ -32,6 +32,6 @@ export const postsReducer = createReducer(
   on(fetchPostByIdFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),
 
   on(createPostsRequest, state => ({...state, fetchLoading: true, fetchError: null})),
-  on(createPostsSuccess, state  => ({...state, fetchLoading: false})),
+  on(createPostsSuccess, (state, {post})  => ({...state, fetchLoading: false, post})),
   on(createPostsFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),
 )

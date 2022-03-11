@@ -2,6 +2,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
+  createPostsRequest,
+  createPostsSuccess,
   fetchPostByIdFailure,
   fetchPostByIdRequest,
   fetchPostByIdSuccess,
@@ -19,7 +21,7 @@ export class PostsEffects {
     ofType(fetchPostsRequest),
     mergeMap(() => this.postsService.getPosts().pipe(
       map(posts => fetchPostsSuccess({posts})),
-      catchError(requestError => {
+      catchError(() => {
         return of(fetchPostsFailure({error: 'Something went wrong!'}));
       })
     ))
@@ -29,34 +31,21 @@ export class PostsEffects {
     ofType(fetchPostByIdRequest),
     mergeMap(id => this.postsService.getPostById(id._id).pipe(
       map(post => fetchPostByIdSuccess({post})),
-      catchError(requestError => {
+      catchError(() => {
         return of(fetchPostByIdFailure({error: 'Something went wrong!'}));
       })
     ))
   ));
 
-  //
-  // createPost = createEffect(() => this.actions.pipe(
-  //   ofType(createPostsRequest),
-  //   mergeMap(post => this.postsService.createPost({post}).pipe(
-  //     map(() => createPostsSuccess()),
-  //     tap(() => {
-  //       this.snackbar.open('Register successful', 'OK', {duration: 3000});
-  //       void this.router.navigate(['/']);
-  //     }),
-  //     catchError(requestError => {
-  //       let registerError = null;
-  //
-  //       if(requestError instanceof HttpErrorResponse && requestError.status === 400) {
-  //         registerError = requestError.error;
-  //       }else{
-  //         this.snackbar.open('Server error', 'OK', {duration: 3000});
-  //       }
-  //
-  //       return of(createPostsFailure({error: registerError}));
-  //     })
-  //   ))
-  // ))
+  createPost = createEffect(() => this.actions.pipe(
+    ofType(createPostsRequest),
+    mergeMap(({postData}) => this.postsService.createPost(postData).pipe(
+      map(post => createPostsSuccess({post})),
+      catchError(() => {
+        return of(fetchPostByIdFailure({error: 'Something went wrong!'}));
+      })
+    ))
+  ))
 
   constructor(
     private postsService: PostsService,
