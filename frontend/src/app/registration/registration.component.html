@@ -7,6 +7,7 @@
         fxLayout="column"
         autocomplete="off"
         (ngSubmit)="onSubmit()"
+        [appIdentical]="['password', 'repeatPassword']"
       >
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
@@ -45,6 +46,22 @@
           >Password is required!
           </mat-error>
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Repeat password</mat-label>
+          <input
+            type="password" name="repeatPassword" autocomplete="new-password"
+            required matInput ngModel #repeatPassword="ngModel"
+          />
+          <mat-error
+            *ngIf="repeatPassword.touched && repeatPassword.hasError('required')"
+          >Password is required!
+          </mat-error>
+        </mat-form-field>
+        <small
+          *ngIf="repeatPassword.touched && f.errors?.['identical']"
+        >Password should match!
+        </small>
 
         <ng-template #btn>
           <button

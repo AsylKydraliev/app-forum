@@ -1,5 +1,5 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   createPostsRequest,
@@ -41,6 +41,10 @@ export class PostsEffects {
     ofType(createPostsRequest),
     mergeMap(({postData}) => this.postsService.createPost(postData).pipe(
       map(post => createPostsSuccess({post})),
+      tap(() => {
+        void this.router.navigate(['/']);
+        this.snackbar.open('Post published', 'OK', {duration: 3000});
+      }),
       catchError(() => {
         return of(fetchPostByIdFailure({error: 'Something went wrong!'}));
       })

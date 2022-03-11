@@ -33,6 +33,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { CommentsComponent } from './post/comments/comments.component';
 import { commentsReducer } from './store/comment.reducer';
 import { CommentsEffects } from './store/comment.effects';
+import { ValidateIdenticalDirective } from './validate-identical.directive';
 
 export const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -52,7 +53,8 @@ const metaReducers: Array<MetaReducer> = [localStorageSyncReducer];
     RegistrationComponent,
     FileInputComponent,
     LoginComponent,
-    CommentsComponent
+    CommentsComponent,
+    ValidateIdenticalDirective,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,7 @@ const metaReducers: Array<MetaReducer> = [localStorageSyncReducer];
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

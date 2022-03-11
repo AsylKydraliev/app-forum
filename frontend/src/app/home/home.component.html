@@ -12,10 +12,12 @@
       fxLayoutAlign="start"
     >
       <img
+        *ngIf="post.image"
         mat-card-md-image
         [src]="apiUrl + '/uploads/' + post.image"
         alt="{{ post.title }}"
       >
+      <p *ngIf="!post.image" style="margin: 25px">No image</p>
       <div>
         <mat-card-title-group>
           <mat-card-subtitle>{{ post.date }}</mat-card-subtitle>

@@ -44,9 +44,10 @@ export class CommentsComponent implements OnInit {
       text: this.form.value.text,
       token: <string>this.userObj?.token,
       user: <string>this.userObj?._id,
-      post: <string>this.postId
+      post: this.postId
     }
 
     this.store.dispatch(createCommentRequest({commentData: this.comment}));
+    this.store.dispatch(fetchCommentsRequest({id: this.comment.post}));
   }
 }

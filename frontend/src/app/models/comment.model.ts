@@ -17,6 +17,6 @@ export class CommentClass {
     public _id: string,
     public post: string,
     public user: string,
-    public text: string
+    public text: string,
   ) {}
 }

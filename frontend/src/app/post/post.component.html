@@ -2,7 +2,13 @@
   <mat-card-title-group>
     <mat-card-title>{{ postData?.title }}</mat-card-title>
     <mat-card-subtitle>{{ postData?.date }}</mat-card-subtitle>
-    <img mat-card-xl-image [src]="apiUrl + '/uploads/' + postData?.image" alt="{{ postData?.title }}">
+    <img
+      *ngIf="postData?.image"
+      mat-card-xl-image
+      [src]="apiUrl + '/uploads/' + postData?.image"
+      alt="{{ postData?.title }}"
+    >
+    <p *ngIf="!postData?.image && apiUrl + '/uploads/' + null" style="margin: 50px; font-size: 30px">NO IMAGE</p>
   </mat-card-title-group>
   <mat-card-content>
     {{ postData?.description }}
