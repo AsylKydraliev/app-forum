@@ -6,6 +6,7 @@
         #f="ngForm"
         fxLayout="column"
         (ngSubmit)="onSubmit()"
+        [appRequired]="['description', 'image']"
       >
         <mat-form-field appearance="outline">
           <mat-label>Title</mat-label>
@@ -18,12 +19,20 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Description</mat-label>
-          <input name="description" matInput ngModel/>
+          <input name="description" matInput ngModel #description="ngModel">
+          <mat-error
+            *ngIf="description.touched && f.errors?.['descriptionImage']"
+          >Description is required!
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Image</mat-label>
-          <app-file-input name="image" ngModel></app-file-input>
+          <app-file-input name="image" ngModel #image="ngModel"></app-file-input>
+          <mat-error
+            *ngIf="image.touched && f.errors?.['descriptionImage']"
+          >Image is required!
+          </mat-error>
         </mat-form-field>
 
         <ng-template #btn>
