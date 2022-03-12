@@ -51,7 +51,10 @@ router.post('/', authorization, upload.single('image'), async (req, res, next) =
 
 router.get('/', async (req, res, next) => {
     try{
-        const posts = await Post.find().populate('user', 'name');
+        const sort = {};
+        sort._id = -1;
+
+        const posts = await Post.find().sort(sort).populate('user', 'name');
 
         return res.send(posts);
     }catch (error){
@@ -64,9 +67,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try{
-        const post = await Post.findOne({_id: req.params.id}).populate('user', 'name');
+        const product = await Post.findOne({_id: req.params.id}).populate('user', 'name');
 
-        return res.send(post);
+        return res.send(product);
     }catch (error){
         if(error instanceof mongoose.Error.ValidationError){
             return res.status(400).send(error);

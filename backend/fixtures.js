@@ -27,12 +27,12 @@ const run = async () => {
 
     const [post1, post2] =  await Post.create({
         user: user,
-        date: '01.01.2022',
+        date: new Date().toISOString(),
         title: 'New post',
         description: 'New post description',
     }, {
         user: user1,
-        date: '01.01.2022',
+        date: new Date().toISOString(),
         title: 'New post1',
         description: 'New post description1',
     });
