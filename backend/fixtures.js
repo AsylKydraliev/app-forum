@@ -20,7 +20,7 @@ const run = async () => {
         token: '5enDI2paOqusPavVWOnwB'
     }, {
         email: 'user1@gmail.com',
-        displayName: 'user1',
+        name: 'user1',
         password: '123',
         token: '8enDI2paOqusBavVWOnwL'
     });
